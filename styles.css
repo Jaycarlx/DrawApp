@@ -1,3 +1,7 @@
+html{
+    overflow-x: hidden;
+}
+
 *{
     margin: 0;
     padding: 0;
@@ -143,7 +147,18 @@ section{
 .draw-board{
     flex: 1;
 }
-
+@media screen and (max-width: 700px){
+.container{
+    flex-direction: column-reverse;
+}
+.tools-board{
+    width: 100%;
+    flex:1;
+}
+.draw-board{
+    padding: 10rem 0;
+}
+}
 
 
 
