@@ -1,55 +1,7 @@
- const canvas = document.querySelector("canvas"),
- toolBtns = document.querySelectorAll(".tool")
-    ctx = canvas.getContext("2d");
-
-
-let isDrawing = false,
-    selectedTool = "brush"
-    brushWidth = 5;
-
-window.addEventListener("load", () => {
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight
-})
-
-
-const startDraw = (e) => {
-    e.preventDefault()
-    isDrawing = true;
-    ctx.beginPath()
-    ctx.lineWidth = brushWidth
-}
-
-const drawing = (e) => {
-    if (!isDrawing) return;
-    ctx.lineTo(e.offsetX, e.offsetY);
-    ctx.stroke();
-}
-
-toolBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-        document.querySelector(".options .active").classList.remove("active")
-        btn.classList.add("active")
-        console.log(btn.id)
-    })
-})
-
-canvas.addEventListener("mousedown", startDraw, false);
-canvas.addEventListener("mousemove", drawing, false);
-canvas.addEventListener("mouseup", () => isDrawing = false), false;
-
-console.log(canvas);
-
-
-
-
-
-
-
 //let canvas = document.querySelector("canvas");
 //     ctx = canvas.getContext("2d");
-ctx.strokeStyle = "#222222";
-ctx.lineWith = 5;
+//     ctx.strokeStyle = "#222222";
+// ctx.lineWith = 2;
     
 // Set up mouse events for draWing
 var draWing = false;
@@ -97,8 +49,13 @@ function rendercanvas() {
     }
   }
   
+  // Allow for animation
+  (function drawLoop () {
+    requestAnimFrame(drawLoop);
+    rendercanvas();
+})();
+  
 // Set up touch events for mobile, etc
-const html = document.querySelector("html")
 canvas.addEventListener("touchstart", function (e) {
     mousePos = getTouchPos(canvas, e);
 var touch = e.touches[0];
@@ -133,26 +90,16 @@ y: touchEvent.touches[0].clientY - rect.top
 // Prevent scrolling when touching the canvas
 document.body.addEventListener("touchstart", function (e) {
     if (e.target == canvas) {
-      html.style.overflowY = "hidden"
-    }  else {
-        html.style.overflowY = "scroll"
-      }
+      e.preventDefault();
+    }
   }, false);
   document.body.addEventListener("touchend", function (e) {
     if (e.target == canvas) {
-        html.style.overflowY = "hidden"
-      }
-    else {
-        html.style.overflowY = "scroll"
-      }
+      e.preventDefault();
+    }
   }, false);
   document.body.addEventListener("touchmove", function (e) {
     if (e.target == canvas) {
-        html.style.overflow = "hidden"
-    }  else {
-        html.style.overflowY = "scroll"
-      }
+      e.preventDefault();
+    }
   }, false);
-
-
-
