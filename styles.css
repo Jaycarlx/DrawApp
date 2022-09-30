@@ -183,6 +183,7 @@ section{
 }
 .tools-board .row ul{
     display: flex;
+    flex-wrap: wrap;
 }
 .tools-board .row ul li{
     margin-left: .5rem;
@@ -202,7 +203,7 @@ section{
     gap: 2rem;
 }
 .draw-board{
-flex: 4;
+flex: 1;
 flex-basis: 10rem;
 flex-grow: inherit;
 min-height: 30rem;
