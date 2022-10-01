@@ -3,20 +3,32 @@ const canvas = document.querySelector("canvas"),
     fillColor = document.querySelector("#fill-color"),
     sizeSlider = document.querySelector("#size-slider"),
     colorBtns = document.querySelectorAll(".colors .option"),
-    clearAll = document.querySelector(".clear-canvas")
+    clearAll = document.querySelector(".clear-canvas"),
     colorPicker = document.querySelector("#color-picker"),
+saveImg = document.querySelector(".save-img")
+        
     ctx = canvas.getContext("2d");
 
 
 let prevMouseX, prevMouseY, snapShot,
     isDrawing = false,
     selectedTool = "brush"
-brushWidth = 5;
-selectedColor = "#000"
+brushWidth = 5,
+    selectedColor = "#000";
+
+
+const setCanvasColor = () => {
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = selectedColor;
+}
+
+
 
 window.addEventListener("load", () => {
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight
+    setCanvasColor();
 })
 
 const drawRect = (e) => {
@@ -101,8 +113,16 @@ colorPicker.addEventListener("change", () => {
 
 clearAll.addEventListener("click", () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    setCanvasColor();
 })
 
+saveImg.addEventListener("click", () => {
+    const link = document.createElement("a");
+    link.download = `${Date.now()}.jpg`
+    link.href = canvas.toDataURL();
+    link.click();
+    console.log("sAVED")
+})
 
 canvas.addEventListener("mousedown", startDraw, false);
 canvas.addEventListener("mousemove", drawing, false);
